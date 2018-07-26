@@ -102,8 +102,8 @@ def query(pToken, dimensions, metrics, start, end):
 
 ## create sessions queries
 #pageToken = "go" # can be any string to get started
-start = '2018-06-01'
-end = '2018-07-14'
+start = start_date # string e.g. '2018-07-01'
+end = end_date
 sessions1_qr = query(pToken = "go",
                      dimensions = ['ga:date', 'ga:dimension1',
                                    'ga:userType', 'ga:landingpagePath',

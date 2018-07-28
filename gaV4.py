@@ -12,6 +12,7 @@ Created on Fri Jul 13 15:00:26 2018
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
+import os
 
 
 
@@ -19,7 +20,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Globals
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = 'lifee3-209903-aae64c6e3245.json'
-VIEW_ID = VIEW_ID
+VIEW_ID = os.environ["le_view"]
+
+print(VIEW_ID)
 
 
 
@@ -101,7 +104,17 @@ def query(pToken, dimensions, metrics, start, end):
 
 
 ## create sessions queries
-#pageToken = "go" # can be any string to get started
+# pageToken = "go" # can be any string to get started
+
+## datetimes into GA api format, for rolling 24 hour period (1 day)
+from datetime import datetime, timedelta
+today = datetime.today()
+yesterday = today - timedelta(days = 1)
+previousd = yesterday - timedelta(days = 1)
+start_date = previousd.strftime('%Y-%m-%d')
+end_date = yesterday.strftime('%Y-%m-%d')
+
+
 start = start_date # string e.g. '2018-07-01'
 end = end_date
 sessions1_qr = query(pToken = "go",
@@ -212,14 +225,14 @@ sessionsDF = sessionsDF[cols]
 
 # MySQL Connection
 ## params
-usr = USER
-pw = PW
-hst = HOST
-pt = PORT
+usr = os.environ["le_usr"]; print(usr)
+hst = os.environ["le_hst"]; print(hst)
+pt = os.environ["le_port"]; print(pt)
+pw = os.environ["le_pw"]; print(pw)
 
-import mysql.connector
-cnx = mysql.connector.connect(user = usr, password = pw,
-                              host = hst,
-                              database = db,
-                              port = pt)
-cnx.close()
+# import mysql.connector
+# cnx = mysql.connector.connect(user = usr, password = pw,
+#                               host = hst,
+#                               database = db,
+#                               port = pt)
+# cnx.close()

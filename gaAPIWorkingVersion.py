@@ -329,7 +329,7 @@ cols_newname = ['session_id', 'client_id', 'ga_date', 'user_type',
         'landing_page_path', 'device_category', 'operating_system',
         'source', 'medium', 'campaign', 'ad_content',
         'keyword', 'sessions', 'bounces', 'goal1_completions',
-        'session_duraction']
+        'session_duration']
 
 pageviews_newname = ['session_id', 'hostname', 'page_path',
                      'article_title', 'author', 'disease_area', 'content_type',

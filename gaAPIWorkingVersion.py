@@ -114,14 +114,16 @@ def query(pToken, dimensions, metrics, start, end, dim_filter = None):
 
 ## datetimes into GA api format, for rolling 24 hour period (1 day)
 from datetime import datetime, timedelta
-#today = datetime.today()
-#yesterday = today - timedelta(days = 1)
-#previousd = yesterday - timedelta(days = 1)
-#start_date = previousd.strftime('%Y-%m-%d')
-#end_date = yesterday.strftime('%Y-%m-%d')
+today = datetime.today()
+yesterday = today - timedelta(days = 1)
+start_date = yesterday.strftime('%Y-%m-%d')
+end_date = start_date
+print('start date (and end date) is :' + start_date)
 
-start_date = '2018-07-24'; print('start_date is :' + start_date)
-end_date = '2018-07-24'; print('end_date is :' + end_date)
+
+## For Manual Updates Only
+# start_date = '2018-07-27'; print('start_date is :' + start_date)
+# end_date = '2018-07-27'; print('end_date is :' + end_date)
 
 
 start = start_date # string e.g. '2018-07-01'
@@ -293,7 +295,6 @@ eng_eventsDF = eng_eventsDF.pivot_table(index = ['ga:dimension1', 'ga:eventCateg
 ## drop rownum, eventCategory and action, redundant now
 del eng_eventsDF['rownum']
 del eng_eventsDF['ga:eventCategory']
-#del eng_eventsDF['ga:eventAction']
 
 
 ## group and aggregate
@@ -352,10 +353,10 @@ eng_eventsDF.columns = eng_events_newname
 
 # # MySQL Connection
 # ## params
-usr = os.environ["le_usr"]; print(usr)
-hst = os.environ["le_host"]; print(hst)
-pt = os.environ["le_port"]; print(pt)
-pw = os.environ["le_pw"]; print(pw)
+usr = os.environ["le_usr"]
+hst = 'localhost'
+pt = os.environ["le_port"]
+pw = os.environ["le_pw"]
 db = 'ga_web'
 
 # import mysql.connector

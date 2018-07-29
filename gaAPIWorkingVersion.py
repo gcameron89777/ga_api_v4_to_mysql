@@ -120,8 +120,8 @@ from datetime import datetime, timedelta
 #start_date = previousd.strftime('%Y-%m-%d')
 #end_date = yesterday.strftime('%Y-%m-%d')
 
-start_date = '2018-07-23'; print('start_date is :' + start_date)
-end_date = '2018-07-23'; print('end_date is :' + end_date)
+start_date = '2018-07-24'; print('start_date is :' + start_date)
+end_date = '2018-07-24'; print('end_date is :' + end_date)
 
 
 start = start_date # string e.g. '2018-07-01'
@@ -293,7 +293,7 @@ eng_eventsDF = eng_eventsDF.pivot_table(index = ['ga:dimension1', 'ga:eventCateg
 ## drop rownum, eventCategory and action, redundant now
 del eng_eventsDF['rownum']
 del eng_eventsDF['ga:eventCategory']
-del eng_eventsDF['ga:eventAction']
+#del eng_eventsDF['ga:eventAction']
 
 
 ## group and aggregate
@@ -367,16 +367,16 @@ db = 'ga_web'
 
 # MySQL Connection
 ## connection
-# import mysql.connector
+import mysql.connector
 from sqlalchemy import create_engine
 engine = create_engine('mysql+mysqlconnector://' + usr + ':' + pw + '@' + hst + ':' + pt + '/' + db, echo=False)
 
 
 ## add data to ga_web
-#sessionsDF.to_sql('ga_sessions', con = engine, if_exists = 'append', index = False)
-#pageviewsDF.to_sql('ga_pageviews', con = engine, if_exists = 'append', index = False)
-#eventsDF.to_sql('ga_events', con = engine, if_exists = 'append', index = False)
-#eng_eventsDF.to_sql('ga_engagement_events', con = engine, if_exists = 'append', index = False)
+sessionsDF.to_sql('ga_sessions', con = engine, if_exists = 'append', index = False)
+pageviewsDF.to_sql('ga_pageviews', con = engine, if_exists = 'append', index = False)
+eventsDF.to_sql('ga_events', con = engine, if_exists = 'append', index = False)
+eng_eventsDF.to_sql('ga_engagement_events', con = engine, if_exists = 'append', index = False)
 
 
 ## close up
